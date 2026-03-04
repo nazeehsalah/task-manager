@@ -2,16 +2,12 @@
 
 html {
   height: 100%;
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
+  @include mat.theme((color: (primary: mat.$azure-palette,
         tertiary: mat.$blue-palette,
       ),
       typography: Inter,
       density: 0,
-    )
-  );
+    ));
 }
 
 body {
@@ -21,10 +17,50 @@ body {
   font: var(--mat-sys-body-medium);
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: Inter, "Helvetica Neue", sans-serif;
   background-color: #f5f7fa;
+}
+
+.status-tabs-wrapper {
+  .status-tabs {
+    .mat-mdc-tab-labels {
+      gap: 8px;
+    }
+
+    .mat-mdc-tab {
+      --mat-tab-container-height: auto;
+      --mat-tab-active-indicator-height: 0;
+
+      &.mdc-tab--active {
+        background-color: rgba(25, 118, 210, 1);
+        --mat-tab-active-label-text-color: #fff;
+        --mat-tab-active-hover-label-text-color: #fff;
+        --mat-tab-active-focus-label-text-color: #fff;
+        --mat-tab-active-active-hover-label-text-color: #fff;
+        border-radius: 4px;
+      }
+
+      &.mdc-tab {
+        min-width: auto;
+        padding: 8px 16px;
+      }
+
+      &:hover {
+        .mdc-tab__ripple::before {
+          opacity: 0.2;
+          border-radius: 4px;
+        }
+      }
+    }
+
+    .mat-mdc-tab-label-container {
+      --mat-tab-divider-height: 0px;
+
+    }
+  }
 }

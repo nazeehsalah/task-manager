@@ -1,12 +1,23 @@
 <div class="dashboard-container">
-
-  @if (statistics.value(); as stats) {
+  @if (statistics.isLoading()) {
+  <app-spinner />
+  }
+  @else if (statistics.value(); as stats) {
   <div class="stats-grid">
     @for (stat of stats.data; track stat.id) {
     <app-stat-card [stat]="stat"></app-stat-card>
     }
   </div>
   }
-  @if (statistics.isLoading()) {
-  <app-spinner />
+  @else {
+  <no-data />
   }
+
+  @if (tasks.isLoading()) {
+  <app-spinner />
+  } @else if (tasks.value(); as tasksList) {
+  <app-dashboard-toolbar></app-dashboard-toolbar>
+  } @else {
+  <no-data />
+  }
+</div>
