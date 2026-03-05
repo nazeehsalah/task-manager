@@ -10,9 +10,15 @@
   </div>
 
   <div class="toolbar-actions">
-    <button mat-stroked-button class="priority-btn">
+    <button mat-stroked-button class="priority-btn" [matMenuTriggerFor]="priorityMenu">
       Priority <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
     </button>
+    <mat-menu #priorityMenu="matMenu">
+      <button mat-menu-item (click)="priorityChange.emit('all')">All Priorities</button>
+      <button mat-menu-item (click)="priorityChange.emit('high')">High</button>
+      <button mat-menu-item (click)="priorityChange.emit('medium')">Medium</button>
+      <button mat-menu-item (click)="priorityChange.emit('low')">Low</button>
+    </mat-menu>
     <button mat-flat-button color="primary" class="priority-btn">
       <mat-icon>add</mat-icon>
       New Task

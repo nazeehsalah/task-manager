@@ -18,4 +18,5 @@ export class Dashboard {
   statistics = this.taskService.statisticsResource;
   tasks = this.taskService.tasksResource;
   selectedStatus = signal<string>('all');
+  selectedPriority = signal<string>('all');
 }
