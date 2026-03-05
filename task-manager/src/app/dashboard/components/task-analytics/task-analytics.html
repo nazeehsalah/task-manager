@@ -1,0 +1,39 @@
+<div class="analytics-page-container">
+  @if (tasksResource.isLoading()) {
+  <app-spinner />
+  } @else if (tasksResource.value()) {
+  <h2 class="page-title">Analytics</h2>
+  <div class="analytics-grid">
+    <div class="chart-card">
+      <h3 class="card-title">Tasks by Priority</h3>
+      <div class="chart-wrapper">
+        <canvas baseChart [data]="priorityChartData()" [options]="priorityChartOptions" type="pie">
+        </canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h3 class="card-title">Tasks by Status</h3>
+      <div class="chart-wrapper">
+        <canvas baseChart [data]="statusChartData()" [options]="statusChartOptions" type="doughnut">
+        </canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h3 class="card-title">On Time vs Overdue</h3>
+      <div class="chart-wrapper">
+        <canvas baseChart [data]="overdueChartData()" [options]="overdueChartOptions" type="doughnut">
+        </canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h3 class="card-title">Tasks by Assignee</h3>
+      <div class="chart-wrapper bar-chart">
+        <canvas baseChart [data]="assigneeChartData()" [options]="assigneeChartOptions" type="bar">
+        </canvas>
+      </div>
+    </div>
+  </div>
+  } @else {
+  <no-data />
+  }
+</div>

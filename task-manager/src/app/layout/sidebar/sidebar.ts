@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +10,7 @@ import { TaskFormDialog } from '../../shared/dialogs/task-form-dialog/task-form-
 
 @Component({
   selector: 'app-sidebar',
-  imports: [MatListModule, MatIconModule, MatButtonModule, MatDividerModule, MatDialogModule],
+  imports: [RouterModule, MatListModule, MatIconModule, MatButtonModule, MatDividerModule, MatDialogModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })

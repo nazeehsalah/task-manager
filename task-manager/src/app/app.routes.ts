@@ -13,6 +13,10 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () => import('./dashboard/dashboard').then(m => m.Dashboard)
+      },
+      {
+        path: 'analytics',
+        loadComponent: () => import('./dashboard/components/task-analytics/task-analytics').then(m => m.TaskAnalytics)
       }
     ]
   },
