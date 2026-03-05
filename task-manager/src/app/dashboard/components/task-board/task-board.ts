@@ -5,6 +5,7 @@ import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-
 import { TaskCard } from '../task-card/task-card';
 import { Task } from '../../../core/models/task.model';
 import { TaskService } from '../../../core/services/task';
+import { SearchService } from '../../../core/services/search';
 
 @Component({
   selector: 'app-task-board',
@@ -19,6 +20,7 @@ export class TaskBoard {
   selectedAssignees = input<string[]>([]);
   private taskService = inject(TaskService);
   private snackBar = inject(MatSnackBar);
+  private searchService = inject(SearchService);
   sortTasks = (tasks: Task[]) => {
     return tasks.sort((a, b) => {
       // Both overdue or both not overdue
@@ -42,7 +44,7 @@ export class TaskBoard {
       targetArray.splice(event.currentIndex, 0, event.previousContainer.data.splice(event.previousIndex, 1)[0]);
       
       this.taskService.updateTask(task.id, { status: newStatus as Task['status'] }).then(() => {
-        this.snackBar.open(`Task moved to ${newStatus.replace('_', ' ').toUpperCase()}`, 'Close', { duration: 2000, });
+        this.snackBar.open(`Task moved to ${newStatus.replace('_', ' ').toUpperCase()}`, 'Close', { duration: 2000 });
       }).catch(err => {
         console.error('Failed to move task', err);
         this.snackBar.open('Failed to move task', 'Close', { duration: 3000, panelClass: 'error-snackbar' });
@@ -53,30 +55,36 @@ export class TaskBoard {
     }
   }
 
-  todoTasks = computed(() =>
-    this.sortTasks(
+  todoTasks = computed(() => {
+    const term = this.searchService.searchTerm().toLowerCase();
+    return this.sortTasks(
       this.tasks()
         .filter((t) => t.status === 'todo')
         .filter((t) => this.selectedPriority() === 'all' || t.priority === this.selectedPriority())
-        .filter((t) => this.selectedAssignees().length === 0 || (t.assignee && this.selectedAssignees().includes(t.assignee.id))),
-    ),
-  );
+        .filter((t) => this.selectedAssignees().length === 0 || (t.assignee && this.selectedAssignees().includes(t.assignee.id)))
+        .filter((t) => !term || t.title.toLowerCase().includes(term) || t.description.toLowerCase().includes(term)),
+    );
+  });
 
-  inProgressTasks = computed(() =>
-    this.sortTasks(
+  inProgressTasks = computed(() => {
+    const term = this.searchService.searchTerm().toLowerCase();
+    return this.sortTasks(
       this.tasks()
         .filter((t) => t.status === 'in_progress')
         .filter((t) => this.selectedPriority() === 'all' || t.priority === this.selectedPriority())
-        .filter((t) => this.selectedAssignees().length === 0 || (t.assignee && this.selectedAssignees().includes(t.assignee.id))),
-    ),
-  );
+        .filter((t) => this.selectedAssignees().length === 0 || (t.assignee && this.selectedAssignees().includes(t.assignee.id)))
+        .filter((t) => !term || t.title.toLowerCase().includes(term) || t.description.toLowerCase().includes(term)),
+    );
+  });
 
-  doneTasks = computed(() =>
-    this.sortTasks(
+  doneTasks = computed(() => {
+    const term = this.searchService.searchTerm().toLowerCase();
+    return this.sortTasks(
       this.tasks()
         .filter((t) => t.status === 'done')
         .filter((t) => this.selectedPriority() === 'all' || t.priority === this.selectedPriority())
-        .filter((t) => this.selectedAssignees().length === 0 || (t.assignee && this.selectedAssignees().includes(t.assignee.id))),
-    ),
-  );
+        .filter((t) => this.selectedAssignees().length === 0 || (t.assignee && this.selectedAssignees().includes(t.assignee.id)))
+        .filter((t) => !term || t.title.toLowerCase().includes(term) || t.description.toLowerCase().includes(term)),
+    );
+  });
 }

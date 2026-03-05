@@ -6,11 +6,24 @@
       </div>
       <span>Task Manager</span>
     </div>
-    <span class="spacer"></span>
-    <button mat-icon-button aria-label="Notifications" class="notifcation-icon" >
-      <img src="./icons/notifcation.png" alt="Logo">
-    </button>
-    <button mat-fab extended color="accent" class="user-avatar" disabled>JD</button>
+
+    <mat-form-field appearance="outline" class="global-search-input">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Search tasks..." [ngModel]="searchService.searchTerm()"
+        (ngModelChange)="searchService.searchTerm.set($event)">
+      @if (searchService.searchTerm()) {
+      <button matSuffix mat-icon-button aria-label="Clear" (click)="searchService.searchTerm.set('')">
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+
+    <div class="profile-area">
+      <button mat-icon-button aria-label="Notifications" class="notifcation-icon">
+        <img src="./icons/notifcation.png" alt="Logo">
+      </button>
+      <button mat-fab extended color="accent" class="user-avatar" disabled>JD</button>
+    </div>
   </mat-toolbar>
 
   <mat-sidenav-container class="app-sidenav-container">
