@@ -1,6 +1,7 @@
 <div class="toolbar-container">
   <div class="status-tabs-wrapper">
-    <mat-tab-group animationDuration="0ms" class="status-tabs" [mat-stretch-tabs]="false" [disableRipple]="true">
+    <mat-tab-group class="status-tabs" [mat-stretch-tabs]="false" [disableRipple]="true"
+      (selectedIndexChange)="onTabChange($event)">
       <mat-tab label="All"></mat-tab>
       <mat-tab label="To Do"></mat-tab>
       <mat-tab label="In Progress"></mat-tab>

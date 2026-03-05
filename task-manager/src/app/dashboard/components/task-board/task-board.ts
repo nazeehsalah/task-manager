@@ -11,6 +11,7 @@ import { Task } from '../../../core/models/task.model';
 })
 export class TaskBoard {
   tasks = input.required<Task[]>();
+  selectedStatus = input<string>('all');
   sortTasks = (tasks: Task[]) => {
     return tasks.sort((a, b) => {
       // Both overdue or both not overdue

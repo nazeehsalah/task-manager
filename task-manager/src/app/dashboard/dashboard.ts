@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StatCard } from './components/stat-card/stat-card';
 import { TaskService } from '../core/services/task';
@@ -17,4 +17,5 @@ export class Dashboard {
   private taskService = inject(TaskService);
   statistics = this.taskService.statisticsResource;
   tasks = this.taskService.tasksResource;
+  selectedStatus = signal<string>('all');
 }

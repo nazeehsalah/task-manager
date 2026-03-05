@@ -1,6 +1,7 @@
 <div class="task-board-container">
   
   <!-- TO DO Column -->
+  @if (selectedStatus() === 'all' || selectedStatus() === 'todo') {
   <div class="board-column">
     <div class="column-header">
       <span class="column-title">TO DO</span>
@@ -12,8 +13,10 @@
       }
     </div>
   </div>
+  }
 
   <!-- IN PROGRESS Column -->
+  @if (selectedStatus() === 'all' || selectedStatus() === 'in_progress') {
   <div class="board-column">
     <div class="column-header">
       <span class="column-title">IN PROGRESS</span>
@@ -25,8 +28,10 @@
       }
     </div>
   </div>
+  }
 
   <!-- DONE Column -->
+  @if (selectedStatus() === 'all' || selectedStatus() === 'done') {
   <div class="board-column">
     <div class="column-header">
       <span class="column-title">DONE</span>
@@ -38,5 +43,6 @@
       }
     </div>
   </div>
+  }
 
 </div>

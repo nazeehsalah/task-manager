@@ -16,8 +16,8 @@
   @if (tasks.isLoading()) {
   <app-spinner />
   } @else if (tasks.value(); as tasksList) {
-  <app-dashboard-toolbar></app-dashboard-toolbar>
-  <app-task-board [tasks]="tasksList"></app-task-board>
+  <app-dashboard-toolbar (statusChange)="selectedStatus.set($event)"></app-dashboard-toolbar>
+  <app-task-board [tasks]="tasksList" [selectedStatus]="selectedStatus()"></app-task-board>
   } @else {
   <no-data />
   }
