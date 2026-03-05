@@ -1,4 +1,4 @@
-<div class="task-board-container">
+<div class="task-board-container" cdkDropListGroup>
   
   <!-- TO DO Column -->
   @if (selectedStatus() === 'all' || selectedStatus() === 'todo') {
@@ -7,9 +7,13 @@
       <span class="column-title">TO DO</span>
       <span class="column-count">{{ todoTasks().length }}</span>
     </div>
-    <div class="column-content">
+    <div class="column-content" 
+         id="todo" 
+         cdkDropList 
+         [cdkDropListData]="todoTasks()" 
+         (cdkDropListDropped)="drop($event)">
       @for (task of todoTasks(); track task.id) {
-        <app-task-card [task]="task"></app-task-card>
+        <app-task-card [task]="task" cdkDrag [cdkDragData]="task"></app-task-card>
       }
     </div>
   </div>
@@ -22,9 +26,13 @@
       <span class="column-title">IN PROGRESS</span>
       <span class="column-count">{{ inProgressTasks().length }}</span>
     </div>
-    <div class="column-content">
+    <div class="column-content" 
+         id="in_progress" 
+         cdkDropList 
+         [cdkDropListData]="inProgressTasks()" 
+         (cdkDropListDropped)="drop($event)">
       @for (task of inProgressTasks(); track task.id) {
-        <app-task-card [task]="task"></app-task-card>
+        <app-task-card [task]="task" cdkDrag [cdkDragData]="task"></app-task-card>
       }
     </div>
   </div>
@@ -37,9 +45,13 @@
       <span class="column-title">DONE</span>
       <span class="column-count">{{ doneTasks().length }}</span>
     </div>
-    <div class="column-content">
+    <div class="column-content" 
+         id="done" 
+         cdkDropList 
+         [cdkDropListData]="doneTasks()" 
+         (cdkDropListDropped)="drop($event)">
       @for (task of doneTasks(); track task.id) {
-        <app-task-card [task]="task"></app-task-card>
+        <app-task-card [task]="task" cdkDrag [cdkDragData]="task"></app-task-card>
       }
     </div>
   </div>
