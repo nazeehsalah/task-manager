@@ -2,10 +2,17 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, HttpInterceptorFn } from '@angular/common/http';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { mockBackendInterceptor } from './core/interceptors/mock-backend.interceptor';
+import { environment } from '../environments/environment';
 
 import { routes } from './app.routes';
+
+const interceptors: HttpInterceptorFn[] = [errorInterceptor];
+if (environment.useMockBackend) {
+  interceptors.unshift(mockBackendInterceptor); // Mock must respond before error interceptor catches it as a real HTTP attempt
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideNativeDateAdapter(),
     provideCharts(withDefaultRegisterables()),
-    provideHttpClient(withInterceptors([errorInterceptor]))
+    provideHttpClient(withInterceptors(interceptors))
   ]
 };
