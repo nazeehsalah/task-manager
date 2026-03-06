@@ -1,7 +1,7 @@
 <div class="analytics-page-container">
   @if (tasksResource.isLoading()) {
   <app-spinner />
-  } @else if (tasksResource.value()) {
+  } @else if (tasksResource.value()?.length) {
   <h2 class="page-title">Analytics</h2>
   <div class="analytics-grid">
     <div class="chart-card">

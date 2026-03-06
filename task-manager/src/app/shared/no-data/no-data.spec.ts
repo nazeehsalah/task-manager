@@ -19,4 +19,11 @@ describe('NoData', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the no-data message in HTML', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const p = compiled.querySelector('.no-data-container p');
+    expect(p).toBeTruthy();
+    expect(p?.textContent?.trim()).toBe('No data available');
+  });
 });

@@ -19,4 +19,11 @@ describe('Spinner', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the indeterminate mat-progress-spinner in HTML', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const spinner = compiled.querySelector('mat-progress-spinner');
+    expect(spinner).toBeTruthy();
+    expect(spinner?.getAttribute('mode')).toBe('indeterminate');
+  });
 });
